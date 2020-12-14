@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <title>{{ name }}</title>
+        <script src='https://cdnjs.cloudflare.com/ajax/libs/Chart.js/1.0.2/Chart.min.js'></script>      
+        <script src='https://cdn.jsdelivr.net/gh/emn178/chartjs-plugin-labels/src/chartjs-plugin-labels.js
+        '></script>      
+
+            <style type="text/css">
+            .header{
+                text-align: center;
+                background-color: rgb(136, 185, 229);
+                height: 70px;
+                line-height: 70px;
+            }
+            .chart{
+                margin-top: 30px;
+            }
+            section{
+                float: left;
+                padding: 10px;
+            }
+            dl{
+                padding: 10px;
+            }
+            .column {
+              float: left;
+              padding: 30px;
+            }
+            ul{
+                list-style:none;
+                max-height:400px;
+                max-width: 200px;
+                margin:0;
+                overflow:auto;
+                padding:0;
+                text-indent:10px;
+              }
+              li{
+                line-height:25px;
+              }
+              li:nth-child(even){
+                background:#ccc;
+              }
+            /* Clear floats after the columns */
+            
+            .row:after {
+              content: "";
+              display: table;
+              clear: both;
+            }
+
+            .row2{
+              float: left;
+              content: "";
+              display: table;
+              clear: both;
+            }
+            .column2 {
+              float: left;
+              padding: 30px;
+            }
+            table {
+              border-collapse: collapse;
+              border-spacing: 0;
+              width: 100%;
+              /* border: 1px solid #ddd; */
+            }
+            th, td {
+              text-align: left;
+              padding: 8px;
+            }
+            tr {
+              width : 400px; 
+            }
+            tr:nth-child(even){background-color: #f2f2f2}
+
+
+        </style>
+    </head>
+    <div class = "row">
+      <div class = "column">
+      <h1>Username : {{name}}</h1>
+      <h3>Details</h3>
+          <dl>
+              <dt>Username :  {{name}}</dt>
+              <dt>Location : {{location}}</dt>
+              <dt>Company : {{company}}</li>
+              <dt>Bio : {{bio}}</dt>
+              <dt>Blog : {{blog}}</dt>
+              <dt>following : {{following}}</dt>
+              <dt>followers : {{followers}}</dt>
+              <dt>Twitter Username : {{twitter_username}}</dt>
+              <dt>Email : {{email}}</dt>
+              <dt>Born : {{created_at}}</dt>
+          </dl>
+          </div>
+          <div class="column">
+          <ul>
+            <span id="ss_elem">
+              Follower List :
+            </span>
+          {% for key, value in followersList.items() %}
+            <li onclick="location.href=value;" > {{ key }} </li>
+          {% endfor %} 
+          </ul>
+          </div>
+        </div class = "row">
+        <body>
+            <div>
+                <section>
+                  <h1>Languages Used</h1>
+                  <canvas id="pieChart" width="600" height="400"></canvas>
+                </section>
+                <section>
+                  <h1>Commit History</h1>
+                  <canvas id="lineChart" width="600" height="400"></canvas>
+                </section>
+            </div>
+              <div>
+              <h2>Repository Stats</h2>
+             </div>
+              <div>
+                
+                {% for repo, languages in repoLanguages.items() %}
+                <div class = "column2">
+                <h3>Name : {{repo}}</h3>
+                <p>Details   :    Lines Written</p>
+                  {% for languages, count in languages.items() %}
+                      <dt>{{languages}} : {{count}}</dt>
+                  {% endfor %} 
+                  </div>
+                {% endfor %} 
+              </div>
+    
+    <script>
+      window.onload = function() {  
+
+      var pieData = [
+        {% for item, label, colors in set %}
+          {
+            value: {{item}},
+            label: "{{label}} Repositories",
+            color : "{{colors}}"
+          },
+        {% endfor %}
+        
+      ];
+
+      // draw pie chart
+    var pieChart = new Chart(document.getElementById("pieChart").getContext("2d")).Pie(pieData);
+    // bar chart data
+    var barData = {
+        labels : [
+          {% for item in labelsLine %}
+            "{{ item }}",
+          {% endfor %}
+        ],
+        datasets : [{
+          fillColor: "rgba(151,187,205,0.2)",
+          strokeColor: "rgba(151,187,205,1)",
+          pointColor: "rgba(151,187,205,1)",
+          pointStrokeColor: "#fff",
+          pointHighlightFill: "#fff",
+          pointHighlightStroke: "rgba(151,187,205,1)",
+          bezierCurve : false,
+          data : [
+	    {% for item in valuesLine %}
+              {{ item }},
+            {% endfor %}]
+          }
+	    ]}
+
+      Chart.defaults.global.animationSteps = 50;
+      Chart.defaults.global.tooltipYPadding = 16;
+      Chart.defaults.global.tooltipCornerRadius = 0;
+      Chart.defaults.global.tooltipTitleFontStyle = "normal";
+      Chart.defaults.global.tooltipFillColor = "rgba(0,0,0,0.8)";
+      Chart.defaults.global.animationEasing = "easeOutBounce";
+      Chart.defaults.global.responsive = false;
+      Chart.defaults.global.scaleLineColor = "black";
+      Chart.defaults.global.scaleFontSize = 16;
+
+      steps = 10
+      max = {{ max }}
+      // LINE CHART
+
+      var lineChart2 = new Chart(document.getElementById("lineChart").getContext("2d")).Line(barData, {
+        options:{
+            title:{
+                display:true,
+                text:'Commit Histo'
+            }
+        },
+        scaleOverride: true,
+        scaleSteps: steps,
+        scaleStepWidth: Math.ceil(max / steps),
+        scaleStartValue: 0,
+        scaleShowVerticalLines: true,
+        scaleShowGridLines : true,
+        barShowStroke : true,
+        scaleShowLabels: true,
+        bezierCurve: false
+      });
+
+};
+</script>
+</body>
+</html>

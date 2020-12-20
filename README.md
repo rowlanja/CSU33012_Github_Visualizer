@@ -1,5 +1,5 @@
 # Github_Visualizer
-Github profile and repository analysis tool
+Github profile and repository analysis tool created by james rowland (18324013)
 
 
 Website : https://sweng-app.herokuapp.com/

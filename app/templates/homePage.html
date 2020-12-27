@@ -1,0 +1,93 @@
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<style> 
+    textarea {
+        width: 100%;
+        height: 200px;
+        padding: 12px 20px;
+        box-sizing: border-box;
+        border: 2px solid #ccc;
+        border-radius: 4px;
+        background-color: #f8f8f8;
+        font-size: 16px;
+        resize: none;
+    }
+    body,h1,h2,h3,h4,h5,h6 {font-family: "Lato", sans-serif;}
+    body, html {
+        text-align: center;
+        height: 100%;
+        color: rgb(227, 230, 228);
+        line-height: 1.8;
+    }
+
+    /* Create a Parallax Effect */
+    .bgimg-1, .bgimg-2, .bgimg-3 {
+    background-attachment: fixed;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    }
+    .bg {
+    /* The image used */
+    background-image: url("app/static/backgrounWeb.jpg");
+
+    /* Full height */
+    height: 100%;
+
+    /* Center and scale the image nicely */
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    }
+
+    .left{
+        text-align: left;
+        padding-left : 30px;
+        padding-right: 20px;
+        padding-top: 20px;
+        padding-bottom: 20px;
+    }
+    input{
+        padding: 12px 20px;
+        margin: 8px 0;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        box-sizing: border-box;
+    }
+    
+</style>
+<body background="{{url_for('static', filename='backgrounWeb.jpg')}}">
+    <h2>
+        Github Analyzer
+    </h2>
+    <h4>
+        A tool created by James Rowland for Trinity College Software Engineering Assignment
+    </h4>
+</body>
+<div class = "left">
+    <div>
+    <form action="/" method="POST">
+        <h3>Analyse User</h3>
+        <body width="200">Analyse User Gives a holistic visualiation of a User by visualizing various importantnt metrics and<br/> also includes a simple information derivation system that returns a tailored analysis section about the entered user </body>
+        <p>By entering the username into the text box and hitting submit we analyse a single user's account
+        <br>Recommended input : rowlanja </p>
+        Name: <input type="text" name="username" required><br>
+        <input type="submit" value="Submit">
+    </form>
+    </div>
+    <div>
+    <form action="{{ url_for('repoGet') }}" method="post">
+        <h3>Analyse Repository</h3>
+        <p>By entering the repository name into the text box and hitting submit we analyse a Repositories analytics
+        <br>Recommended username : freeCodeCamp <br>
+        Recommended repository name : freeCodeCamp </p>
+        UserName: <input type="text" name="userName" required><br>
+        Repository Name: <input type="text" name="repoName" required><br>
+        <input type="submit" value="Submit">
+    </form>
+    </div>
+</div>

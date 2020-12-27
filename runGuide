@@ -1,0 +1,15 @@
+1) navigate to swengProject
+2) type python wsgi.py
+3) project will run in localhost
+4) MAKE SURE YOU HAVE NO OTHER PROCESS RUNNING ON THAT PORT
+to work on enviroment 
+$ . venv/bin/activate
+the pip install any packages
+
+to commit changes
+1) git add *
+2) git commit -m "MESSAGE"
+3) git push heroku master
+
+TO DEBUG PROBLEMS DEPLOYING TO HEROKU USE :
+heroku logs --tail
